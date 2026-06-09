@@ -1,55 +1,109 @@
-# Caminos de Agua — Water Systems Map
+# Caminos de Agua — Water Systems Maps
 
-Interactive map of water system installations across rural Guanajuato, Mexico.
+Two interactive maps showing water technology installations across rural Guanajuato, Mexico.
 
-**Live site:** https://caminosdeagua.github.io/water-systems-map
+**Community Map (live):** https://caminosdeagua.github.io/water-systems-map
+**Technology Registry (live):** https://caminosdeagua.github.io/water-systems-map/registry.html
 
-## What it shows
+---
 
-- **Rainwater Harvesting Systems** (ferrocement 12,000L and Rotoplas 5,000L cisterns) across 198+ communities, 2015–2026
-- **Composting Toilets** across 17 communities, 2020–2023
-- **Nuestra Agua** groundwater treatment systems at Los Ricos, Alonso Yáñez, and San Elías
+## Map 1: Water Systems by Community (`index.html`)
 
-Filter by year, municipality, or technology type. Click any community for full installation history, funders, and partners.
+Historical overview of all rainwater harvesting, composting toilet, and Nuestra Agua installations by community, 2015–present.
 
-## Data sources
+**What it shows:**
+- One pin per community, sized by number of systems installed
+- Rainwater harvesting systems (ferrocement 12,000L and Rotoplas 5,000L)
+- Composting toilets
+- Nuestra Agua groundwater treatment systems (Los Ricos, Alonso Yáñez, San Elías)
+- Cumulative totals by year — select a year to see everything installed through that point
 
-| Source | Covers | Authority |
-|--------|--------|-----------|
-| Projects Private | RWH 2015–2023 | Community-level attribution |
-| Tecnologías registry | RWH 2024+, sanitarios 2020+ | Individual systems, GPS per system |
-| Historic Data | Annual totals 2013–2025 | Verified annual totals |
+**Data source:** `caminos_map_data.json` — built from Projects Private (2015–2023), Tecnologías registry (2024+), and Historic Data annual totals.
 
-Data current through: **PP May 24 2026 / Tec April 18 2026**
+**Data current through:** Projects Private May 24, 2026 · Tecnologías registry April 18, 2026 · Historic Data 2024 final / 2025 partial
+
+**Note:** 49 RWH systems (3.3% of verified 2015–2024 total) have no community-level record and cannot be mapped. 5 communities have no GPS coordinates and appear in the sidebar only.
+
+---
+
+## Map 2: Technology Installation Registry (`registry.html`)
+
+Individual system-level registry from the Tecnologías tracking sheet, 2020–present. Primarily covers 2024+ where records are most complete.
+
+**What it shows:**
+- One dot per system installed (RWH, filters, composting toilets)
+- Filters by year, technology type, municipality, funder, collaborator, and project
+- "AEA — Todas las ministraciones" filter shows all Agua en Acción systems across all ministraciones
+- Summary table: totals by technology, funder, and year
+- Photo links where available (Google Photos and Google Drive)
+
+**Technology types:**
+- SCALL — Ferrocemento (12,000L)
+- SCALL — Rotoplas (5,000L)
+- Filtro — Aguadapt
+- Filtro — EOZ
+- Filtro — Sawyer
+- Sanitarios secos
+
+**Data source:** `registry_data.json` — built from Tecnologías registry CSV export.
+
+**Data current through:** April 2026
+
+**Note:** Only 12% of systems have GPS coordinates currently. Map shows placed systems only; all systems appear in the sidebar and summary table regardless of GPS. Coordinates will be completed in future registry updates.
+
+---
+
+## Files in this repo
+
+| File | Purpose |
+|------|---------|
+| `index.html` | Community map — all HTML, CSS, and data embedded |
+| `registry.html` | Registry map — all HTML, CSS, and data embedded |
+| `caminos_map_data.json` | Data for community map |
+| `registry_data.json` | Data for registry map |
+| `README.md` | This file |
+
+---
 
 ## How to update
 
-### When new systems are installed (recommended: quarterly)
+### Update the registry map (when new Tec data is available)
 
-1. Open the Tecnologías registry in Google Sheets
-2. Go to **File → Download → Comma Separated Values (.csv)**
-3. Save the file (you can keep the default name)
-4. Open this repository on GitHub: https://github.com/caminosdeagua/water-systems-map
-5. Click on `caminos_tec_live.csv` in the file list
-6. Click the pencil icon (Edit), then click **"Upload file"** — replace with your new CSV
-7. Click **"Commit changes"** (green button)
-8. The map will update automatically within 1–2 minutes
+The registry map data needs to be rebuilt by Claude when you have a new Tec export. In the Caminos Project Records project in Claude:
 
-That's it — you do not need to edit any code.
+1. Upload the new Tec registry CSV
+2. Ask Claude to rebuild `registry_data.json` and `registry.html` using `build_registry.py`
+3. Upload the new files to this repo
 
-### When to do a full rebuild (once a year)
+### Update the community map (annually)
 
-After Historic Data totals are finalized for the prior year, ask Claude to rebuild `index.html` and `caminos_map_data.json` using the updated source files. This reconciles community-level data against verified annual totals.
+After Historic Data totals are finalized for the prior year, ask Claude to rebuild `caminos_map_data.json` and `index.html` using `build_final.py`. Do this once a year.
 
-## Files
+### Add/update content (Nuestra Agua details, community notes, etc.)
 
-- `index.html` — the entire dashboard (self-contained, no server needed)
-- `caminos_map_data.json` — historical community data (2015–2023 + all Nuestra Agua + sanitarios)
-- `caminos_tec_live.csv` — Tec registry export (replace this to update 2024+ data)
-- `README.md` — this file
+Edit `caminos_map_data.json` directly or ask Claude to update it, then rebuild `index.html`.
 
-## Notes on data gaps
+---
 
-49 systems (3.3% of verified 2015–2024 total) cannot be mapped because they have no community record in the source files. These appear in the "not on map" warning when a specific year is selected. See the Unattributed Systems sheet in `Caminos_RWH_Installations_v4_June2026.xlsx` for details.
+## Embed on website (Squarespace)
 
-5 communities have no GPS coordinates on record and appear in the sidebar but not on the map.
+Add a Code Block and paste:
+
+```html
+<!-- Community map -->
+<iframe src="https://caminosdeagua.github.io/water-systems-map"
+  width="100%" height="650px" style="border:none;border-radius:8px;"
+  title="Mapa de sistemas de agua — Caminos de Agua"></iframe>
+
+<!-- Registry map -->
+<iframe src="https://caminosdeagua.github.io/water-systems-map/registry.html"
+  width="100%" height="650px" style="border:none;border-radius:8px;"
+  title="Registro de tecnologías — Caminos de Agua"></iframe>
+```
+
+---
+
+## Build scripts (stored in Claude project, not needed on GitHub)
+
+- `build_final.py` — rebuilds `index.html` and `caminos_map_data.json`
+- `build_registry.py` — rebuilds `registry.html` and `registry_data.json`
