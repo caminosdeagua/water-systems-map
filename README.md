@@ -2,8 +2,8 @@
 
 Two interactive maps showing water technology installations across rural Guanajuato, Mexico.
 
-**Community Map (live):** https://caminosdeagua.github.io/water-systems-map
-**Technology Registry (live):** https://caminosdeagua.github.io/water-systems-map/registry.html
+**Community Map (live):** https://Caminos-de-Agua.github.io/water-systems-map
+**Technology Registry (live):** https://Caminos-de-Agua.github.io/water-systems-map/registry.html
 
 ---
 
@@ -28,7 +28,7 @@ Historical overview of all rainwater harvesting, composting toilet, and Nuestra 
 
 ## Map 2: Technology Installation Registry (`registry.html`)
 
-Individual system-level registry from the Tecnologías tracking sheet, 2020–present. Primarily covers 2024+ where records are most complete.
+Individual system-level registry from the Tecnologías tracking sheet, primarily covering 2024+.
 
 **What it shows:**
 - One dot per system installed (RWH, filters, composting toilets)
@@ -81,7 +81,7 @@ After Historic Data totals are finalized for the prior year, ask Claude to rebui
 
 ### Add/update content (Nuestra Agua details, community notes, etc.)
 
-Edit `caminos_map_data.json` directly or ask Claude to update it, then rebuild `index.html`.
+Ask Claude to update `caminos_map_data.json`, then rebuild `index.html`. Always upload both files together.
 
 ---
 
@@ -91,12 +91,12 @@ Add a Code Block and paste:
 
 ```html
 <!-- Community map -->
-<iframe src="https://caminosdeagua.github.io/water-systems-map"
+<iframe src="https://Caminos-de-Agua.github.io/water-systems-map"
   width="100%" height="650px" style="border:none;border-radius:8px;"
   title="Mapa de sistemas de agua — Caminos de Agua"></iframe>
 
 <!-- Registry map -->
-<iframe src="https://caminosdeagua.github.io/water-systems-map/registry.html"
+<iframe src="https://Caminos-de-Agua.github.io/water-systems-map/registry.html"
   width="100%" height="650px" style="border:none;border-radius:8px;"
   title="Registro de tecnologías — Caminos de Agua"></iframe>
 ```
@@ -107,3 +107,7 @@ Add a Code Block and paste:
 
 - `build_final.py` — rebuilds `index.html` and `caminos_map_data.json`
 - `build_registry.py` — rebuilds `registry.html` and `registry_data.json`
+- `registry_template.html` — HTML/CSS/JS template used by `build_registry.py`
+
+Backup copies of all HTML and JSON files are kept in Google Drive:
+**Communications → Sitio Web → Website 2.0 → Water Systems Maps**
